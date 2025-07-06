@@ -1,15 +1,33 @@
-import { useState } from "react";
-import routinesData from "../data/routinesData";
-import RoutineCard from "../components/RoutineCard";
+import { useEffect, useState } from "react"
+import routinesData from "../data/routinesData"    //Data for defects
+import RoutineCard from "../components/RoutineCard"
 
 const Rutines = () => {
-  const [routines, setRoutines] = useState(routinesData);
+  const [routines, setRoutines] = useState([]);
   const [form, setForm] = useState({
     name: "",
     focus: "",
     duration: "",
     exercises: ""
   });
+
+   // 🔁 Al iniciar, cargar desde localStorage (o usar data de ejemplo)
+   useEffect(()=>{
+    const storedRoutines = localStorage.getItem("routines")
+    if (storedRoutines) {
+        setRoutines(JSON.parse(storedRoutines))
+    }else{
+        setRoutines(routinesData)
+    }
+   },[])
+
+     // 💾 Cada vez que cambien las rutinas, actualizamos localStorage
+     useEffect(()=>{
+        if (routines.length>0) {
+            localStorage.setItem("routines",JSON.stringify(routines)) 
+        }
+     },[routines])
+
 
   const handleChange = (e) => {
     setForm({
