@@ -1,14 +1,93 @@
-import routinesData from "../data/routinesData"
-import RoutineCard from "../components/RoutineCard"
+import { useState } from "react";
+import routinesData from "../data/routinesData";
+import RoutineCard from "../components/RoutineCard";
 
 const Rutines = () => {
-    return (
+  const [routines, setRoutines] = useState(routinesData);
+  const [form, setForm] = useState({
+    name: "",
+    focus: "",
+    duration: "",
+    exercises: ""
+  });
+
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!form.name || !form.focus || !form.duration || !form.exercises) return;
+
+    const newRoutine = {
+      id: Date.now(),
+      name: form.name,
+      focus: form.focus,
+      duration: form.duration,
+      exercises: form.exercises.split(",").map((e) => e.trim())
+    };
+
+    setRoutines([newRoutine, ...routines]);
+
+    setForm({ name: "", focus: "", duration: "", exercises: "" });
+  };
+
+  return (
     <main className="p-4">
-      <h1 className="text-xl font-bold text-blue-600">Workout Routines</h1>
-      {routinesData.map((routine)=>(
-        <RoutineCard key={routine.id} routine={routine}/>
+      <h1 className="text-xl font-bold text-blue-600 mb-4">Workout Routines</h1>
+
+      <form
+        onSubmit={handleSubmit}
+        className="bg-gray-100 p-4 rounded-lg mb-6"
+      >
+        <input
+          className="w-full mb-2 p-2 border rounded"
+          type="text"
+          name="name"
+          placeholder="Routine Name"
+          value={form.name}
+          onChange={handleChange}
+        />
+        <input
+          className="w-full mb-2 p-2 border rounded"
+          type="text"
+          name="focus"
+          placeholder="Focus (e.g. Legs, Arms)"
+          value={form.focus}
+          onChange={handleChange}
+        />
+        <input
+          className="w-full mb-2 p-2 border rounded"
+          type="text"
+          name="duration"
+          placeholder="Duration (e.g. 60 min)"
+          value={form.duration}
+          onChange={handleChange}
+        />
+        <textarea
+          className="w-full mb-2 p-2 border rounded"
+          name="exercises"
+          placeholder="Exercises (comma separated)"
+          value={form.exercises}
+          onChange={handleChange}
+        />
+        <button
+          type="submit"
+          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+        >
+          Add Routine
+        </button>
+      </form>
+
+      {routines.map((routine) => (
+        <RoutineCard key={routine.id} routine={routine} />
       ))}
     </main>
-  )
-}
-export default Rutines 
+  );
+};
+
+export default Rutines;
