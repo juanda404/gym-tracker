@@ -3,6 +3,7 @@ import Inicio from '../pages/Inicio'
 import Rutines from '../pages/Rutines'
 import History from '../pages/History'
 import Estadisticas from '../pages/Estadisticas'
+import BottomNav from '../components/BottomNav'
 
 const AppRouter = () => (
   <BrowserRouter>
@@ -12,6 +13,7 @@ const AppRouter = () => (
       <Route path="/History" element={<History />} />
       <Route path="/estadisticas" element={<Estadisticas />} />
     </Routes>
+    <BottomNav />
   </BrowserRouter>
 )
 
