@@ -115,6 +115,12 @@ const handleDelete = () => {
             >
               Delete
             </button>
+            <button
+              onClick={() => navigate('/rutinas')}
+              className="text-white bg-blue-500 rounded hover:underline text-sm"
+            >
+            Back to routines
+              </button>
           </div>
         </div>
       ) : (
