@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import routinesData from "../data/routinesData"    //Data for defects
 import RoutineCard from "../components/RoutineCard"
+import { Link } from 'react-router-dom'
+
 
 const Rutines = () => {
   const [routines, setRoutines] = useState([]);
@@ -102,7 +104,9 @@ const Rutines = () => {
       </form>
 
       {routines.map((routine) => (
-        <RoutineCard key={routine.id} routine={routine} />
+          <Link to={`/rutinas/${routine.id}`} key={routine.id}>
+              <RoutineCard routine={routine} />
+          </Link>
       ))}
     </main>
   );

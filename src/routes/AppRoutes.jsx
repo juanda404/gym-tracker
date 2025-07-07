@@ -4,6 +4,7 @@ import Inicio from "../pages/Inicio"
 import Rutines from "../pages/Rutines"
 import History from "../pages/History"
 import Estadisticas from "../pages/Estadisticas"
+import RoutineDetail from "../pages/RoutineDetail"
 
 const AppRouter = () => (
   <BrowserRouter>
@@ -11,6 +12,7 @@ const AppRouter = () => (
       <Route element={<Layout />}>
         <Route path="/" element={<Inicio />} />
         <Route path="/rutinas" element={<Rutines />} />
+        <Route path="/rutinas/:id" element={<RoutineDetail />} />
         <Route path="/history" element={<History />} />
         <Route path="/estadisticas" element={<Estadisticas />} />
       </Route>
