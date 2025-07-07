@@ -14,6 +14,8 @@ const Rutines = () => {
     exercises: ""
   });
 
+  const [showForm, setShowForm] = useState(false)
+
    // 🔁 Al iniciar, cargar desde localStorage (o usar data de ejemplo)
    useEffect(()=>{
     const storedRoutines = localStorage.getItem("routines")
@@ -60,12 +62,20 @@ const Rutines = () => {
 
     setForm({ name: "", focus: "", duration: "", exercises: "" });
      toast.success("Routine added successfully! 💪");
+     setShowForm(false)  //Option: close the form after to add
   };
 
   return (
     <main className="p-4">
-      <h1 className="text-xl font-bold text-blue-600 mb-4">Workout Routines</h1>
+      <div className="mb-4 flex items-center gap-1">
+           <h1 className="text-xl font-bold text-blue-600">Workout Routines</h1>
+           <button
+              onClick={()=> setShowForm(!showForm)}
+              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
 
+           >+ New</button>
+      </div>
+  {showForm && (
       <form
         onSubmit={handleSubmit}
         className="bg-gray-100 p-4 rounded-lg mb-6"
@@ -108,7 +118,7 @@ const Rutines = () => {
           Add Routine
         </button>
       </form>
-
+  )}
       {routines.map((routine) => (
           <Link to={`/rutinas/${routine.id}`} key={routine.id}>
               <RoutineCard routine={routine} />
