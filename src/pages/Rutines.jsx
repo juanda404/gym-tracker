@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import routinesData from "../data/routinesData"    //Data for defects
 import RoutineCard from "../components/RoutineCard"
 import { Link } from 'react-router-dom'
+import { toast } from 'react-hot-toast'
 
 
 const Rutines = () => {
@@ -41,7 +42,11 @@ const Rutines = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!form.name || !form.focus || !form.duration || !form.exercises) return;
+    if (!form.name || !form.focus || !form.duration || !form.exercises){
+       toast.error("Please fill in all the fields!")
+      return
+
+    } 
 
     const newRoutine = {
       id: Date.now(),
@@ -54,6 +59,7 @@ const Rutines = () => {
     setRoutines([newRoutine, ...routines]);
 
     setForm({ name: "", focus: "", duration: "", exercises: "" });
+     toast.success("Routine added successfully! 💪");
   };
 
   return (

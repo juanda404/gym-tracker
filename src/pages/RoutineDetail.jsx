@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
+import { toast } from 'react-hot-toast'
 
 const RoutineDetail = () =>{
     const {id} = useParams()
@@ -38,9 +39,11 @@ const handleDelete = () => {
     const updated = allRoutines.filter(r => r.id !== parseInt(id))
     localStorage.setItem('routines', JSON.stringify(updated))
     navigate('/rutinas')
+    toast.error('Routine deleted!')
   }
 
   const handleEditToggle = () => {
+    if(editMode) toast('Edit cancelled')
     setEditMode(!editMode)
   }
 
@@ -52,6 +55,11 @@ const handleDelete = () => {
   }
 
   const handleUpdate = e => {
+
+    if (!form.name.trim() || !form.focus.trim() || !form.duration.trim()) {
+  toast.error('All fields are required')
+  return
+}
     e.preventDefault()
     const updatedRoutine = {
       ...routine,
@@ -70,6 +78,8 @@ const handleDelete = () => {
     localStorage.setItem('routines', JSON.stringify(updatedList))
     setRoutine(updatedRoutine)
     setEditMode(false)
+
+    toast.success('Routine updated successfully!')
   }
 
   if (!routine) {
