@@ -7,7 +7,7 @@ const Navbar = () => {
                 <span className="text-lg font-semibold text-blue-700">Gym</span>
             </div>
             <div className="flex items-center gap-2">
-                <span className="text-sm text-gray-600">Welcome,<strong>Juan David</strong> </span>
+                <span className="text-sm text-gray-600">Welcome,<strong>Athlete</strong> </span>
                 <button className="p-2 hover:bg-gray-100 rounded-full" title="Configuration">
                     <Settings className="h-5 w-5 text-gray-500"/>
                 </button>
