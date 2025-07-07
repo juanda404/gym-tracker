@@ -2,11 +2,17 @@ import { useEffect, useState } from "react"
 import { format } from 'date-fns' 
 import es from 'date-fns/locale/es'
 import { useNavigate } from "react-router-dom"
+import routinesData from '../data/routinesData'  //ruta de la estructura
 
 const Inicio = ()=>{ 
     const [user, setUser] = useState('Juan David')
     const [dailyRoutine, setDailyRoutine] = useState(null)
     const navigate = useNavigate()
+
+    const recentWorkouts = routinesData
+    .filter(routine => routine.date)
+    .sort((a,b)=> new Date(b.date) - new Date(a.date))
+    .slice(0,3) //muestra los ultimos 3
 
     //simulation of next routine
     useEffect(()=>{
@@ -44,7 +50,22 @@ const Inicio = ()=>{
           <p className="text-sm text-gray-500">There is no routine scheduled for today.</p>
         )}
         </div>
+        <div className="bg-white rounded-xl shadow p-6">
+          <h2 className="text-lg font-bold text-gray-800 mb-2">Recent training</h2>
+          {recentWorkouts.map((routine) =>(
+            <div key={routine.id} className="flex items-center justify-between mb-2">
+              <div>
+                <p className="text-sm font-medium text-gray-700">{routine.name}</p>
+                <p className="text-xs text-gray-500">{format(new Date(routine.date), 'MMM d, yyy',{locale:es})}</p>
+              </div>
+              <span
+              className={`px-2 py-1 text-xs rounded-full font-semibold ${routine.completed ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600"}`}
+              >{routine.completed ? "Completed" : "Missed"}</span>
+            </div>
+          ))}
+        </div>
       </section>
+      
   )
 }
 
