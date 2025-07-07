@@ -3,6 +3,7 @@ import { format } from 'date-fns'
 import es from 'date-fns/locale/es'
 import { useNavigate } from "react-router-dom"
 import routinesData from '../data/routinesData'  //ruta de la estructura
+import stoicQuotes from '../data/stoicQuotes'
 
 const Inicio = ()=>{ 
     const [user, setUser] = useState('Juan David')
@@ -13,6 +14,8 @@ const Inicio = ()=>{
     .filter(routine => routine.date)
     .sort((a,b)=> new Date(b.date) - new Date(a.date))
     .slice(0,3) //muestra los ultimos 3
+
+    const quoteOfTheDay = stoicQuotes[new Date().getDate() % stoicQuotes.length]
 
     //simulation of next routine
     useEffect(()=>{
@@ -63,6 +66,11 @@ const Inicio = ()=>{
               >{routine.completed ? "Completed" : "Missed"}</span>
             </div>
           ))}
+        </div>
+        <div className="bg-yellow-50 rounded-xl shadow p-6 border border-yellow-200">
+          <h2 className="text-lg font-semibold text-yellow-800 mb-2">Stoic Advice of the Day</h2>
+          <blockquote className="text-sm italic text-yellow-700">{quoteOfTheDay.quote}</blockquote>
+          <p className="text-xs text-yellow-600 mt-1 text-right">-{quoteOfTheDay.author}</p>
         </div>
       </section>
       
