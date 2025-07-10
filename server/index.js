@@ -95,6 +95,53 @@ app.get('/workout_logs', async (req, res) => {
   res.json(data)
 })
 
+// 7. Crear un nuevo registro de ejercicio (exercise_log)
+app.post('/exercise_logs', async (req, res) => {
+  const {
+    workout_log_id,
+    exercise_name,
+    sets,
+    reps,
+    weight_kg,
+    rest_seconds,
+    notes
+  } = req.body
+
+  const { data, error } = await supabase
+    .from('exercise_logs')
+    .insert([
+      {
+        workout_log_id,
+        exercise_name,
+        sets,
+        reps,
+        weight_kg,
+        rest_seconds,
+        notes
+      }
+    ])
+    .select()
+
+  if (error) return res.status(500).json({ error: error.message })
+  res.status(201).json(data[0])
+})
+
+// 8. Obtener todos los registros de ejercicios (opcional: filtrar por workout_log_id)
+app.get('/exercise_logs', async (req, res) => {
+  const { workout_log_id } = req.query
+
+  let query = supabase.from('exercise_logs').select('*').order('created_at', { ascending: false })
+
+  if (workout_log_id) {
+    query = query.eq('workout_log_id', workout_log_id)
+  }
+
+  const { data, error } = await query
+
+  if (error) return res.status(500).json({ error: error.message })
+  res.json(data)
+})
+
 //iniciar servidor
 
 app.listen(PORT, ()=>{
