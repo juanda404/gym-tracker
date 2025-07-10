@@ -66,6 +66,19 @@ app.delete('/routines/:id', async (req, res) => {
   res.status(204).send()
 })
 
+// 5. Crear un nuevo workout log
+app.post('/workout_logs', async (req, res) => {
+  const { user_id, date, routine_id, duration_minutes, notes } = req.body
+
+  const { data, error } = await supabase
+    .from('workout_logs')
+    .insert([{ user_id, date, routine_id, duration_minutes, notes }])
+    .select()
+
+  if (error) return res.status(500).json({ error: error.message })
+  res.status(201).json(data[0])
+})
+
 //iniciar servidor
 
 app.listen(PORT, ()=>{
