@@ -79,6 +79,22 @@ app.post('/workout_logs', async (req, res) => {
   res.status(201).json(data[0])
 })
 
+// 6. Obtener todos los workout logs (opcional: filtrar por user_id)
+app.get('/workout_logs', async (req, res) => {
+  const { user_id } = req.query // Para filtrar si se pasa ?user_id=123
+
+  let query = supabase.from('workout_logs').select('*').order('date', { ascending: false })
+
+  if (user_id) {
+    query = query.eq('user_id', user_id)
+  }
+
+  const { data, error } = await query
+
+  if (error) return res.status(500).json({ error: error.message })
+  res.json(data)
+})
+
 //iniciar servidor
 
 app.listen(PORT, ()=>{
