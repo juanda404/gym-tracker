@@ -1,5 +1,6 @@
 import { Dumbbell } from "lucide-react";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function WorkoutLogForm(){
     const [date, setDate] = useState("")
@@ -7,8 +8,9 @@ export default function WorkoutLogForm(){
     const [notes, setNotes] = useState("");
     const [routineId, setRoutineId] = useState("");
     const [routines, setRoutines] = useState([]);
+    const navigate = useNavigate()
 
-    const userId = "demo-user-id"; // 🔐 Reemplazar con ID real del usuario
+    const userId = "d846b16a-321a-49fa-95a3-1fd416760b28"; // 🔐 Reemplazar con ID real del usuario
 
       useEffect(() => {
     // Trae rutinas para el selector
@@ -48,6 +50,10 @@ export default function WorkoutLogForm(){
       setDuration(0);
       setNotes("");
       setRoutineId("");
+
+      navigate(`/add-exercises/${data.id}`)
+
+
     } catch (error) {
       console.error("❌ Error submitting log:", error.message);
       alert("Error: " + error.message);

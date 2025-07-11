@@ -1,9 +1,11 @@
-import WorkoutLogForm from "../components/WorkoutLogForm";
+import WorkoutLogForm from '../components/WorkoutLogForm';
 
-export default function NewWorkoutLog() {
+const NewWorkoutLog = () => {
   return (
     <div className="p-4">
       <WorkoutLogForm />
     </div>
   );
-}
+};
+
+export default NewWorkoutLog;
