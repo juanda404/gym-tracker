@@ -3,7 +3,7 @@ const Navbar = () => {
     return(
         <header className="w-full bg-white shadow-sm p-2 flex justify-between items-center">
             <div className="flex  items-center gap-2">
-                <img src="/public/logojds.webp" alt="logo" className="h-8 w-8 rounded-2xl"/>
+                <img src="/logojds.webp" alt="logo" className="h-8 w-8 rounded-2xl"/>
                 <span className="text-lg font-semibold text-blue-700">Gym</span>
             </div>
             <div className="flex items-center gap-2">

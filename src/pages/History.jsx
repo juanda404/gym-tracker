@@ -1,5 +1,6 @@
 import WorkoutLogsList from '../components/WorkoutLogsList'
 
+
 const History = () => {
     return (
     <main className="p-4">
