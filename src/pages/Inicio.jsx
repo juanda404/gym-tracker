@@ -31,9 +31,7 @@ const Inicio = ()=>{
     const today = format(new Date(), "EEEE, d  MMMM y", {locale:es})
 
     const handleStartRoutine = ()=>{
-      if(dailyRoutine?.id){
-        navigate(`/rutinas/${dailyRoutine.id}`)
-      }
+      navigate('/NewWorkoutLog')
     }
 
     return (
@@ -47,7 +45,7 @@ const Inicio = ()=>{
           <>
             <p className="text-base font-semibold text-blue-700">{dailyRoutine.name}</p>
             <p className="text-sm text-gray-500 mb-2">Hour: {dailyRoutine.hour}</p>
-            <button onClick={handleStartRoutine}>Start Workout</button>
+            <button onClick={handleStartRoutine} className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Start Workout</button>
           </>
         ): (
           <p className="text-sm text-gray-500">There is no routine scheduled for today.</p>

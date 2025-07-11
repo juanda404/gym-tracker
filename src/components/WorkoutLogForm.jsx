@@ -1,3 +1,4 @@
+import { Dumbbell } from "lucide-react";
 import { useState, useEffect } from "react";
 
 export default function WorkoutLogForm(){
@@ -57,7 +58,7 @@ export default function WorkoutLogForm(){
     <form onSubmit={handleSubmit} className="max-w-md mx-auto p-6 bg-white rounded-xl shadow-lg space-y-5 mt-10">
     
     <div className="bg-gradient-to-r from-blue-600 to-indigo-500 text-white rounded-xl p-4 mb-4">
-        <h2 className="text-xl text-white font-semibold flex items-center gap-2 ">📝 New Workout Log</h2>
+        <h2 className="text-xl text-white font-semibold flex items-center gap-2 "> <Dumbbell size={20} />New Workout Log</h2>
         <p className="text-sm opacity-80">Register your daily progress</p>
     </div>
     <div className="flex gap-3 max-sm:flex-col ">
