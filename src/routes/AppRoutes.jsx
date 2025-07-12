@@ -6,7 +6,7 @@ import History from "../pages/History"
 import Estadisticas from "../pages/Estadisticas"
 import RoutineDetail from "../pages/RoutineDetail"
 import NewWorkoutLog from "../pages/NewWorkoutLog"
-import AddExercisesPage from "../pages/AddExercisesPage"
+import AddExercisesPag from "../pages/AddExercisesPage"
 
 const AppRouter = () => (
   <BrowserRouter>
@@ -18,7 +18,7 @@ const AppRouter = () => (
         <Route path="/history" element={<History />} />
         <Route path="/estadisticas" element={<Estadisticas />} />
         <Route path="/NewWorkoutLog" element={<NewWorkoutLog />}/>
-        <Route path="/add-exercises/:workoutLogId" element={<AddExercisesPage />} />
+        <Route path="/add-exercises/:workoutLogId" element={<AddExercisesPag />} />
       </Route>
     </Routes>
   </BrowserRouter>

@@ -16,9 +16,40 @@ const AddExerciseForm = ({ onSubmit }) => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    onSubmit(form);
-    setForm({ name: "", sets: "", reps: "", weight: "", rest: "", notes: "" });
+    e.preventDefault()
+    // Convertimos a número los campos necesarios
+  const cleanedForm = {
+    ...form,
+    sets: parseInt(form.sets),
+    reps: parseInt(form.reps),
+    weight: parseFloat(form.weight),
+    rest: parseInt(form.rest),
+  };
+
+    // Validación
+  if (
+    !form.name.trim() ||
+    isNaN(cleanedForm.sets) ||
+    isNaN(cleanedForm.reps) ||
+    isNaN(cleanedForm.weight) ||
+    isNaN(cleanedForm.rest)
+  ) {
+    alert("🚫 Please complete all required fields with valid numbers.");
+    return;
+  }
+
+  onSubmit(cleanedForm);
+
+  // Limpiar formulario
+  setForm({
+    name: "",
+    sets: "",
+    reps: "",
+    weight: "",
+    rest: "",
+    notes: "",
+  });  
+  
   };
 
   return (
