@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState } from "react"
+import toast from "react-hot-toast";
 
 const AddExerciseForm = ({ onSubmit }) => {
   const [form, setForm] = useState({
@@ -28,17 +29,18 @@ const AddExerciseForm = ({ onSubmit }) => {
 
     // Validación
   if (
-    !form.name.trim() ||
-    isNaN(cleanedForm.sets) ||
-    isNaN(cleanedForm.reps) ||
-    isNaN(cleanedForm.weight) ||
-    isNaN(cleanedForm.rest)
+    !form.name.trim() || 
+    isNaN(cleanedForm.sets) || sets <= 0 ||
+    isNaN(cleanedForm.reps) || reps <=0 ||
+    isNaN(cleanedForm.weight) || weight < 0 ||
+    isNaN(cleanedForm.rest) || rest < 0
   ) {
-    alert("🚫 Please complete all required fields with valid numbers.");
+    toast.error("🚫 Please complete all required fields with valid numbers.");
     return;
   }
 
   onSubmit(cleanedForm);
+  toast.success("✅ Exercise added successfully!");
 
   // Limpiar formulario
   setForm({
