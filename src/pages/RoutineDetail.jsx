@@ -47,19 +47,40 @@ const RoutineDetail = () =>{
 
     },[id])
 const handleDelete = async () => {
-    const { error } = await supabase
-      .from('routines')
-      .delete()
-      .eq('id', id)
+  const confirmDelete = window.confirm("Are you sure you want to delete this routine and all associated workout logs?");
+  if (!confirmDelete) return;
 
-    if (error) {
-      toast.error('Error deleting routine')
-      console.error(error)
-      return
+  try {
+    // Primero elimina los workout_logs relacionados
+    const { error: logsError } = await supabase
+      .from("workout_logs")
+      .delete()
+      .eq("routine_id", routine.id);
+
+    if (logsError) {
+      console.error("Error deleting workout logs:", logsError.message);
+      toast.error("Failed to delete workout logs.");
+      return;
     }
 
-    toast.success('Routine deleted!')
-    navigate('/rutinas')
+    // Luego elimina la rutina
+    const { error: routineError } = await supabase
+      .from("routines")
+      .delete()
+      .eq("id", routine.id);
+
+    if (routineError) {
+      console.error("Error deleting routine:", routineError.message);
+      toast.error("Failed to delete routine.");
+      return;
+    }
+
+    toast.success("Routine and associated logs deleted successfully!");
+    navigate("/rutinas"); // Ajusta según tu ruta
+  } catch (error) {
+    console.error("Unexpected error:", error);
+    toast.error("Something went wrong.");
+  }
   }
 
   const handleEditToggle = () => {
