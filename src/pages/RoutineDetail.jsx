@@ -38,7 +38,7 @@ const RoutineDetail = () =>{
         focus: data.focus || '',
         duration: data.duration || '',
         exercises: data.exercises?.join(', ') || '',
-        day: data.day || '',
+        date: data.date || '',
         completed: data.completed || false
       })
     }
@@ -88,7 +88,7 @@ const handleDelete = async () => {
       focus: form.focus,
       duration: form.duration,
       exercises: form.exercises.split(',').map(e => e.trim()),
-      date: form.completed,
+      date: form.date,
       completed: form.completed
     }
 
@@ -125,7 +125,7 @@ const handleDelete = async () => {
           <p><strong>Name:</strong> {routine.name}</p>
           <p><strong>Focus:</strong> {routine.focus}</p>
           <p><strong>Duration:</strong> {routine.duration}</p>
-          <p><strong>Day:</strong> {routine.day}</p>
+          <p><strong>date:</strong> {routine.date}</p>
           <p><strong>Completed:</strong> {routine.completed ? 'Yes' : 'No'}</p>
           <p><strong>Exercises:</strong></p>
           <ul className="list-disc ml-6 text-sm text-gray-700">
@@ -151,7 +151,7 @@ const handleDelete = async () => {
           <input className="w-full mb-2 p-2 border rounded" name="name" value={form.name} onChange={handleChange} placeholder="Routine Name" />
           <input className="w-full mb-2 p-2 border rounded" name="focus" value={form.focus} onChange={handleChange} placeholder="Focus" />
           <input className="w-full mb-2 p-2 border rounded" name="duration" value={form.duration} onChange={handleChange} placeholder="Duration" />
-          <input className="w-full mb-2 p-2 border rounded" name="day" value={form.day} onChange={handleChange} placeholder="Day" />
+          <input className="w-full mb-2 p-2 border rounded" name="date" value={form.date} onChange={handleChange} placeholder="date" />
           <textarea className="w-full mb-2 p-2 border rounded" name="exercises" value={form.exercises} onChange={handleChange} placeholder="Exercises (comma separated)" />
           <div className="mb-2">
             <label className="text-sm mr-2">
