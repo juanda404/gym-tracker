@@ -28,11 +28,11 @@ app.get('/routines', async (req,res) =>{
 
 // 2. Crear una nueva rutina
 app.post('/routines',async(req,res)=>{
-    const {name,focus,duration,exercises} = req.body
+    const {name,focus,duration,exercises,date,completed} = req.body
 
     const {data, error} = await supabase
     .from('routines')
-    .insert([ {name, focus, duration, exercises}])
+    .insert([ {name, focus, duration, exercises, date, completed}])
     .select()
     if (error) return res.status(500).json({error:  error.message})
     res.status(201).json(data[0])

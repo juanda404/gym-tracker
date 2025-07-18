@@ -5,7 +5,7 @@ const ExerciseLogsList = ({ workoutLogId }) => {
 
   useEffect(() => {
     const fetchExercises = async () => {
-      const res = await fetch(`http://localhost:5000/exercise_logs?workout_log_id=${workoutLogId}`)
+      const res = await fetch(`http://localhost:5000/exercise_logs`)
       const data = await res.json()
       setExercises(data)
     }
