@@ -7,16 +7,20 @@ import Estadisticas from "../pages/Estadisticas"
 import RoutineDetail from "../pages/RoutineDetail"
 import NewWorkoutLog from "../pages/NewWorkoutLog"
 import AddExercisesPag from "../pages/AddExercisesPage"
+import Login from "../pages/Login"
+import ProtectedRoute from "../components/ProtectedRoute"
 
 const AppRouter = () => (
   <BrowserRouter>
     <Routes>
-      <Route element={<Layout />}>
-        <Route path="/" element={<Inicio />} />
+      <Route path="/Login" element={<Login/>}/>
+
+      <Route  element={<Layout />}>
+        <Route path="/" element={<ProtectedRoute><Inicio /></ProtectedRoute>} />
         <Route path="/rutinas" element={<Rutines />} />
-        <Route path="/rutinas/:id" element={<RoutineDetail />} />
-        <Route path="/history" element={<History />} />
-        <Route path="/estadisticas" element={<Estadisticas />} />
+        <Route path="/rutinas/:id" element={<ProtectedRoute><RoutineDetail /></ProtectedRoute>} />
+        <Route path="/history" element={<ProtectedRoute><History /></ProtectedRoute>} />
+        <Route path="/estadisticas" element={<ProtectedRoute><Estadisticas /></ProtectedRoute>} />
         <Route path="/NewWorkoutLog" element={<NewWorkoutLog />}/>
         <Route path="/add-exercises/:workoutLogId" element={<AddExercisesPag />} />
       </Route>

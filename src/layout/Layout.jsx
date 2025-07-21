@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom"
 import BottomNav from "../components/BottomNav"
 import Navbar from "../components/Navbar"
+import Login from "../pages/Login"
 
 const Layout = () => {
   return (
