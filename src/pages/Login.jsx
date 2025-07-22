@@ -20,7 +20,7 @@ const Login = () => {
       console.error(error)
     } else {
       toast.success('¡Bienvenido!')
-      navigate('/estadisticas') // O la ruta que quieras después del login
+      navigate('/') // O la ruta que quieras después del login
     }
   }
 

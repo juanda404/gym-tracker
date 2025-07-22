@@ -1,4 +1,5 @@
 import useExerciseStats from '../components/useExerciseStats'
+import ExerciseLogsList from '../components/ExerciseLogsList'
 
 const Estadisticas = () => {
   const {stats, loading } = useExerciseStats()
@@ -8,16 +9,11 @@ const Estadisticas = () => {
 
 
   return (
-        <main className="p-4">
+      <main className="p-4">
       <h1 className="text-xl font-bold text-blue-600">Statistics</h1>
       <p className="text-sm text-gray-500 mb-4">Track your improvements and metrics.</p>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <StatBox label="Total Workouts" value={stats.totalWorkouts} />
-        <StatBox label="Total Time (min)" value={stats.totalDuration} />
-        <StatBox label="Total Weight Lifted (kg)" value={Math.round(stats.totalWeight)} />
-        <StatBox label="Most Frequent Exercise" value={stats.mostCommonExercise} />
-        <StatBox label="Most Used Routine" value={stats.mostUsedRoutine} />
+      <div>
+        <ExerciseLogsList />
       </div>
     </main>
   )
