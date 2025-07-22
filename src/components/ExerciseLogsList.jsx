@@ -1,7 +1,15 @@
 import useExerciseStats from "./useExerciseStats"
+import {
+  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
+} from 'recharts'
 
 const ExerciseLogsList = () => {
   const {stats, loading } = useExerciseStats()
+
+  const chartData = stats?.dailyWorkouts?.map((entry) => ({
+  date: new Date(entry.date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short' }),
+  duration: entry.total_minutes,
+})) || []
 
   // Convierte minutos en formato "Xh Ym"
 const formatDuration = (totalMinutes) => {
@@ -29,12 +37,26 @@ return (
       <p><strong>🧠 Most Frequent Exercise:</strong> {stats.mostCommonExercise}</p>
       <p><strong>📅 Total Workouts:</strong> {formatNumber(stats.totalWorkouts)}</p>
       <p><strong>⏱ Total Duration:</strong> {formatDuration(stats.totalDuration)}</p>
-      <p><strong>🏋️ Total Weight Lifted:</strong> {formatNumber(stats.totalWeight)} kg</p>
+      <p><strong>🏋️ Total Weight Lifted:</strong> {formatNumber(stats.totalWeight)}</p>
       <p><strong>🔥 Most Used Routine:</strong> {stats.mostUsedRoutine}</p>
     </div>
   </div>
 ) : (
   <p className="text-red-500 text-center">No stats available</p>
+)}
+{stats?.dailyDurations?.length > 0 && (
+  <div className="w-full h-64 my-4">
+    <h2 className="text-lg font-semibold mb-2 text-center">🗓️ Duración diaria de entrenamientos</h2>
+    <ResponsiveContainer width="100%" height="100%">
+      <LineChart data={stats.dailyDurations}>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="date" tick={{ fontSize: 12 }} />
+        <YAxis label={{ value: 'Minutos', angle: -90, position: 'insideLeft' }} />
+        <Tooltip />
+        <Line type="monotone" dataKey="minutes" stroke="#8884d8" strokeWidth={2} dot={{ r: 4 }} />
+      </LineChart>
+    </ResponsiveContainer>
+  </div>
 )}
   </main>
 )

@@ -19,8 +19,6 @@ export default function useExerciseStats() {
     const fetchStats = async () => {
       setLoading(true)
 
-      console.log("👤 Usuario activo:", user)
-
       const { data, error } = await supabase
         .from('workout_logs')
         .select(`
@@ -41,7 +39,6 @@ export default function useExerciseStats() {
       }
 
       if (!data || data.length === 0) {
-        console.log("📭 No hay registros de entrenamiento.")
         setStats({
           totalWorkouts: 0,
           totalDuration: 0,
@@ -53,15 +50,17 @@ export default function useExerciseStats() {
         return
       }
 
-      console.log("📦 Workouts encontrados:", data)
-
       // Cálculos
       const totalWorkouts = data.length
-      const totalDuration = data.reduce((acc, workout) => acc + (workout.duration_minutes || 0), 0)
+      const rawTotalDuration = data.reduce((acc, workout) => acc + (workout.duration_minutes || 0), 0)
+      const hours = Math.floor(rawTotalDuration / 60)
+      const minutes = rawTotalDuration % 60
+      const totalDurationFormatted = `${hours}h ${minutes}m`
 
       let totalWeight = 0
       const exerciseCount = {}
       const routineCount = {}
+      const dailyDurations = {}
 
       data.forEach(workout => {
         // Peso total
@@ -81,18 +80,31 @@ export default function useExerciseStats() {
         if (routineName) {
           routineCount[routineName] = (routineCount[routineName] || 0) + 1
         }
+        // Duración por día
+        const date = new Date(workout.date).toISOString().split('T')[0]
+        dailyDurations[date] = (dailyDurations[date] || 0) + (workout.duration_minutes || 0)
       })
 
       const mostCommonExercise = Object.entries(exerciseCount).sort((a, b) => b[1] - a[1])[0]?.[0] || 'N/A'
       const mostUsedRoutine = Object.entries(routineCount).sort((a, b) => b[1] - a[1])[0]?.[0] || 'N/A'
 
+      // Convertir dailyDurations a array para gráfica
+      const dailyDurationArray = Object.entries(dailyDurations).map(([date, minutes]) => ({
+        date,
+        minutes,
+      })).sort((a, b) => new Date(a.date) - new Date(b.date))
+
+      
       setStats({
         totalWorkouts,
-        totalDuration,
-        totalWeight,
+        totalDuration: rawTotalDuration,
+        totalDurationFormatted,
+        totalWeight: totalWeight.toLocaleString() + ' kg',
         mostCommonExercise,
         mostUsedRoutine,
+        dailyDurations: dailyDurationArray,
       })
+
       setLoading(false)
     }
 
