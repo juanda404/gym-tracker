@@ -40,9 +40,11 @@ return (
       <p><strong>🏋️ Total Weight Lifted:</strong> {formatNumber(stats.totalWeight)}</p>
       <p><strong>🔥 Most Used Routine:</strong> {stats.mostUsedRoutine}</p>
     </div>
+
   </div>
 ) : (
   <p className="text-red-500 text-center">No stats available</p>
+ 
 )}
 {stats?.dailyDurations?.length > 0 && (
   <div className="w-full h-64 my-4">
