@@ -9,6 +9,7 @@ import NewWorkoutLog from "../pages/NewWorkoutLog"
 import AddExercisesPag from "../pages/AddExercisesPage"
 import Login from "../pages/Login"
 import ProtectedRoute from "../components/ProtectedRoute"
+import Signup from "../components/Signup"
 
 const AppRouter = () => (
   <BrowserRouter>
@@ -23,7 +24,9 @@ const AppRouter = () => (
         <Route path="/estadisticas" element={<ProtectedRoute><Estadisticas /></ProtectedRoute>} />
         <Route path="/NewWorkoutLog" element={<NewWorkoutLog />}/>
         <Route path="/add-exercises/:workoutLogId" element={<AddExercisesPag />} />
+        
       </Route>
+      <Route path="/signup" element={<Signup />} />
     </Routes>
   </BrowserRouter>
 )

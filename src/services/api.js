@@ -23,14 +23,35 @@ export const getExercisesByLogId = async (workoutLogId) => {
 
 // 👇 Obtener todas las rutinas
 export async function getRoutines() {
-  const { data, error } = await supabase.from('routines').select('*').order('id', { ascending: false });
+  const { data: { user }, error: userError } = await supabase.auth.getUser();
+  if (userError) throw userError;
+
+  const { data, error } = await supabase
+    .from('routines')
+    .select('*')
+    .eq('user_id', user.id) // 👈 Solo rutinas del usuario
+    .order('id', { ascending: false });
+
   if (error) throw error;
   return data;
 }
 
 // 👇 Crear una nueva rutina
 export async function createRoutine(newRoutine) {
-  const { data, error } = await supabase.from('routines').insert([newRoutine]).select().single();
+  const { data: { user }, error: userError } = await supabase.auth.getUser();
+  if (userError) throw userError;
+
+  const routineWithUser = {
+    ...newRoutine,
+    user_id: user.id,
+  };
+
+  const { data, error } = await supabase
+    .from('routines')
+    .insert([routineWithUser])
+    .select()
+    .single();
+
   if (error) throw error;
   return data;
 }
