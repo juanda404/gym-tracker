@@ -1,6 +1,7 @@
 import { Dumbbell } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { supabase } from '../supabase/client'
 
 export default function WorkoutLogForm(){
     const [date, setDate] = useState("")
@@ -8,17 +9,34 @@ export default function WorkoutLogForm(){
     const [notes, setNotes] = useState("");
     const [routineId, setRoutineId] = useState("");
     const [routines, setRoutines] = useState([]);
+    const [userId,setUserId] = useState(null)
     const navigate = useNavigate()
 
-    const userId = "d846b16a-321a-49fa-95a3-1fd416760b28"; // 🔐 Reemplazar con ID real del usuario
+    //const userId = "d846b16a-321a-49fa-95a3-1fd416760b28"; // 🔐 Reemplazar con ID real del usuario
+    // 🔐 Obtener el usuario autenticado
+  useEffect(() => {
+    const getUser = async () => {
+      const { data: { user }, error } = await supabase.auth.getUser();
+      if (error) {
+        console.error("Error fetching user:", error.message);
+        return;
+      }
+      setUserId(user.id);
+    };
 
-      useEffect(() => {
-    // Trae rutinas para el selector
-    fetch("http://localhost:5000/routines")
+    getUser();
+  }, []);
+
+
+  // 🎯 Traer solo las rutinas de ese usuario
+  useEffect(() => {
+    if (!userId) return;
+
+    fetch(`http://localhost:5000/routines?user_id=${userId}`)
       .then((res) => res.json())
       .then((data) => setRoutines(data))
       .catch((err) => console.error("Error fetching routines:", err));
-  }, []);
+  }, [userId]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -59,6 +77,10 @@ export default function WorkoutLogForm(){
       alert("Error: " + error.message);
     }
   };
+
+
+  // 👀 Mientras se carga el usuario, no renderizar el formulario
+  if (!userId) return <p className="text-center mt-10">Loading...</p>;
 
   return (
     <form onSubmit={handleSubmit} className="max-w-md mx-auto p-6 bg-white rounded-xl shadow-lg space-y-5 mt-10">

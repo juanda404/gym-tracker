@@ -1,12 +1,102 @@
-# React + Vite
+# 🏋️ RutinaFit — Workout Tracker App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**RutinaFit** is a modern and user-friendly workout tracker app built with **React**, **Tailwind CSS**, and **Supabase**. It allows users to log their workouts, track progress, view daily routines, and get inspired with a new Stoic quote every day.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## Expanding the ESLint configuration
+- 🔐 Supabase Authentication (Sign Up / Login)
+- 📅 Daily personalized workout routine
+- 📈 Real-time workout log and history
+- ✅ Track exercise sets, reps, and weights
+- 💬 Daily Stoic quote for motivation
+- 🎨 Clean and responsive UI built with Tailwind CSS
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🛠️ Tech Stack
+
+- **React.js** — Frontend framework  
+- **Tailwind CSS** — Utility-first CSS framework  
+- **Supabase** — Backend (auth, database, API)  
+- **Vite** — Fast dev server and bundler  
+- **React Router** — Client-side routing  
+- **date-fns** — Date formatting library
+
+---
+
+## 📁 Project Structure
+
+src/
+├── components/ # Reusable components
+├── pages/ # Main views (Home, Profile, Workout)
+├── data/ # Stoic quotes and constants
+├── supabase/ # Supabase client setup
+└── App.jsx # Main router
+
+
+
+---
+
+## 📸 Screenshots
+
+
+> *(Add your images or GIFs here later for demo purposes)*
+
+---
+
+## ⚙️ Getting Started
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/your-username/rutinafit.git
+cd rutinafit
+2. Install dependencies
+bash
+Copiar
+Editar
+npm install
+3. Set up environment variables
+Create a .env file in the root folder and add:
+
+env
+Copiar
+Editar
+VITE_SUPABASE_URL=https://your-project.supabase.co
+VITE_SUPABASE_ANON_KEY=your-supabase-anon-key
+4. Run the development server
+bash
+Copiar
+Editar
+npm run dev
+🔐 Supabase Configuration
+RLS (Row-Level Security) is enabled
+
+Tables are related via user IDs from the auth.users table
+
+Custom profiles table is used to store extended user data (e.g., full name)
+
+✨ Future Improvements
+Progress graphs and statistics
+
+Exercise library with GIFs or demos
+
+Social sharing or team challenges
+
+Progressive Web App (PWA) support
+
+👨‍💻 Author
+Ing. Juan David
+Frontend Developer | Fitness Enthusiast
+📍 Jamundí, Colombia
+LinkedIn • Portfolio
+
+📌 Final Note
+This app is a personal project that reflects my passion for both frontend development and fitness. Built with love, discipline, and some Stoic wisdom.
+
+Feel free to contribute, fork, or get in touch!
+
+
+

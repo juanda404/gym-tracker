@@ -15,15 +15,20 @@ app.get('/', (req,res) =>{
     res.send('🚀 API is running with Supabase SDK!!')
 })
 
-// 1. Obtener todas las rutinas
-app.get('/routines', async (req,res) =>{
-    const {data, error} = await supabase
-    .from('routines')
-    .select('*')
-    .order('id')
-        
-    if (error) return res.status(500).json({ error: error.message})
-    res.json(data)
+// 1. Obtener todas las rutinas (filtradas por user_id si se envía)
+app.get('/routines', async (req, res) => {
+  const { user_id } = req.query
+
+  let query = supabase.from('routines').select('*').order('id')
+
+  if (user_id) {
+    query = query.eq('user_id', user_id)
+  }
+
+  const { data, error } = await query
+
+  if (error) return res.status(500).json({ error: error.message })
+  res.json(data)
 })
 
 // 2. Crear una nueva rutina
