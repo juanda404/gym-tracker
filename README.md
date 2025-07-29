@@ -51,7 +51,7 @@ src/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/rutinafit.git
+git clone https://github.com/juanda404/gym-tracker
 cd rutinafit
 2. Install dependencies
 bash
