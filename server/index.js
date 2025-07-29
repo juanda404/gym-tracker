@@ -79,21 +79,47 @@ app.post('/workout_logs', async (req, res) => {
   res.status(201).json(data[0])
 })
 
-// 6. Obtener todos los workout logs (opcional: filtrar por user_id)
+// 6. Obtener todos los workout logs con el conteo de ejercicios
 app.get('/workout_logs', async (req, res) => {
-  const { user_id } = req.query // Para filtrar si se pasa ?user_id=123
+  const { user_id } = req.query;
 
-  let query = supabase.from('workout_logs').select('*').order('date', { ascending: false })
+  // Obtener todos los workout logs
+  let { data: logs, error: logsError } = await supabase
+    .from('workout_logs')
+    .select('*')
+    .order('date', { ascending: false });
 
+  if (logsError) return res.status(500).json({ error: logsError.message });
+
+  // Filtrar por usuario si se proporciona
   if (user_id) {
-    query = query.eq('user_id', user_id)
+    logs = logs.filter(log => log.user_id === user_id);
   }
 
-  const { data, error } = await query
+  // Obtener todos los exercise_logs
+  const { data: exerciseLogs, error: exerciseError } = await supabase
+    .from('exercise_logs')
+    .select('workout_log_id, exercise_name, sets, reps, weight_kg');
 
-  if (error) return res.status(500).json({ error: error.message })
-  res.json(data)
-})
+  if (exerciseError) return res.status(500).json({ error: exerciseError.message });
+
+  // Agregar exercise_count y exercises a cada workout_log
+  const logsConEjercicios = logs.map(log => {
+    const exercises = exerciseLogs.filter(e => e.workout_log_id === log.id);
+    return {
+      ...log,
+      exercise_count: exercises.length,
+      exercises: exercises.map(e => ({
+        exercise_name: e.exercise_name,
+        sets: e.sets,
+        reps: e.reps,
+        weight_kg: e.weight_kg
+      }))
+    };
+  });
+
+  res.json(logsConEjercicios);
+});
 
 // 7. Crear un nuevo registro de ejercicio (exercise_log)
 app.post('/exercise_logs', async (req, res) => {

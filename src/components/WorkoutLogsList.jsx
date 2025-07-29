@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import dayjs from 'dayjs'
+import { supabase } from '../supabase/client'
+
 
 const WorkoutLogsList = () => {
   const [logs, setLogs] = useState([])
@@ -7,21 +9,29 @@ const WorkoutLogsList = () => {
   const [visibleLogs, setVisibleLogs] = useState(3)
   const [filter, setFilter] = useState('semana') // semana, mes o año
 
-  useEffect(() => {
-    const fetchLogs = async () => {
-      try {
-        const response = await fetch('http://localhost:5000/workout_logs')
-        const data = await response.json()
-        setLogs(data)
-      } catch (error) {
-        console.error('Error fetching logs:', error)
-      } finally {
-        setLoading(false)
-      }
-    }
 
-    fetchLogs()
-  }, [])
+
+useEffect(() => {
+  const fetchLogs = async () => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser()
+      if (!user) {
+        console.error('No user authenticated')
+        return
+      }
+
+      const response = await fetch(`http://localhost:5000/workout_logs?user_id=${user.id}`)
+      const data = await response.json()
+      setLogs(data)
+    } catch (error) {
+      console.error('Error fetching logs:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  fetchLogs()
+}, [])
 
   if (loading) return <p>Loading workout logs...</p>
   if (logs.length === 0) return <p>No workout logs found.</p>
@@ -91,6 +101,18 @@ const WorkoutLogsList = () => {
           <p className="text-sm text-gray-600">
             {log.exercise_count} ejercicios • {Math.floor(log.duration_minutes / 60)}h {log.duration_minutes % 60}min
           </p>
+
+          {/* Lista de ejercicios */}
+          <ul className="mt-2 space-y-1">
+            {log.exercises?.map((exercise, index) => (
+              <li key={index} className="text-sm text-gray-700 flex flex-col">
+                <span className="font-medium">{exercise.exercise_name}</span>
+                <span className="text-gray-500">
+                  {exercise.sets}x{exercise.reps} @ {exercise.weight_kg} kg
+                </span>
+              </li>
+            ))}
+          </ul>
         </div>
       ))}
 
