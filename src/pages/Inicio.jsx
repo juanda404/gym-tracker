@@ -14,9 +14,23 @@ const Inicio = () => {
 
   const today = new Date().toISOString().split("T")[0] // Resultado: '2025-07-23'
   const quoteOfTheDay = stoicQuotes[new Date().getDate() % stoicQuotes.length]
-
+  const [profileName, setProfileName] = useState(null)
   useEffect(() => {
     if (!user) return
+
+    const fetchUserProfile = async () => {
+    const { data, error } = await supabase
+      .from('user_profiles')
+      .select('name')
+      .eq('id', user.id)
+      .single()
+
+    if (error) {
+      console.error("❌ Error fetching profile name:", error)
+    } else {
+      setProfileName(data.name)
+    }
+  }
 
     const fetchWorkoutData = async () => {
       const { data, error } = await supabase
@@ -52,7 +66,7 @@ const Inicio = () => {
         }
       }
     }
-
+    fetchUserProfile()
     fetchWorkoutData()
   }, [user])
 
@@ -68,7 +82,7 @@ const Inicio = () => {
     <section className="space-y-6">
       <div className="bg-white rounded-xl shadow p-6 mt-4">
         <h1 className="text-xl font-bold text-gray-800">
-          ¡Hola {user?.user_metadata?.full_name || "Atleta"}!
+          ¡Hola {profileName || "Atleta"}!
         </h1>
         <p className="text-sm text-gray-500 capitalize">{today}</p>
       </div>
