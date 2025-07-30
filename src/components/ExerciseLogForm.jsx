@@ -21,7 +21,7 @@ const handleSubmit = async (e) => {
   e.preventDefault();
 
   try {
-    const response = await fetch(`http://localhost:5000/exercise_logs`, {
+    const response = await fetch(`https://gym-tracker-2zl6.onrender.com/exercise_logs`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
