@@ -20,7 +20,7 @@ useEffect(() => {
         return
       }
 
-      const response = await fetch(`http://localhost:5000/workout_logs?user_id=${user.id}`)
+      const response = await fetch(`https://gym-tracker-2zl6.onrender.com/workout_logs?user_id=${user.id}`)
       const data = await response.json()
       setLogs(data)
     } catch (error) {
