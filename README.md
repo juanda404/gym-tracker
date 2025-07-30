@@ -40,10 +40,14 @@ src/
 ---
 
 ## 📸 Screenshots
-
-![Inicio](src/assets/screenshots/inicio.png)
-![rutina](src/assets/screenshots/rutina.png)
-
+<table>
+  <tr>
+    <td><img src="src/assets/screenshots/inicio.png" alt="Inicio" width="300"></td>
+    <td><img src="src/assets/screenshots/rutina.png" alt="rutina" width="300"></td>
+    <td><img src="src/assets/screenshots/history.png" alt="rutina" width="300"></td>
+    <td><img src="src/assets/screenshots/estadisticas.png" alt="rutina" width="300"></td>
+  </tr>
+</table>
 ---
 
 ## ⚙️ Getting Started
