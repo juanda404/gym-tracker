@@ -41,9 +41,9 @@ src/
 
 ## 📸 Screenshots
 
+![Inicio](src/assets/screenshots/inicio.png)
+![rutina](src/assets/screenshots/rutinas.png)
 
-> *(Add your images or GIFs here later for demo purposes)*
-(src/assets/screenshots/inicio.png)
 ---
 
 ## ⚙️ Getting Started
