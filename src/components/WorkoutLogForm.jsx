@@ -32,7 +32,7 @@ export default function WorkoutLogForm(){
   useEffect(() => {
     if (!userId) return;
 
-    fetch(`http://localhost:5000/routines?user_id=${userId}`)
+    fetch(`https://gym-tracker-2zl6.onrender.com/routines?user_id=${userId}`)
       .then((res) => res.json())
       .then((data) => setRoutines(data))
       .catch((err) => console.error("Error fetching routines:", err));
@@ -50,7 +50,7 @@ export default function WorkoutLogForm(){
     };
 
     try {
-      const res = await fetch("http://localhost:5000/workout_logs", {
+      const res = await fetch("https://gym-tracker-2zl6.onrender.com/workout_logs", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(logData),
