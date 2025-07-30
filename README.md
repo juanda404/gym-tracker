@@ -59,8 +59,7 @@ git clone https://github.com/juanda404/gym-tracker
 cd rutinafit
 2. Install dependencies
 bash
-Copiar
-Editar
+
 npm install
 3. Set up environment variables
 Create a .env file in the root folder and add:
@@ -95,7 +94,7 @@ Progressive Web App (PWA) support
 Ing. Juan David
 Frontend Developer | Fitness Enthusiast
 📍 Jamundí, Colombia
-LinkedIn • Portfolio
+https://www.linkedin.com/in/juan-david-santamaria/
 
 📌 Final Note
 This app is a personal project that reflects my passion for both frontend development and fitness. Built with love, discipline, and some Stoic wisdom.
