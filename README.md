@@ -43,8 +43,7 @@ src/
 
 
 > *(Add your images or GIFs here later for demo purposes)*
-> (src/assets/screenshots/inicio.png)
-
+(src/assets/screenshots/inicio.png)
 ---
 
 ## ⚙️ Getting Started
