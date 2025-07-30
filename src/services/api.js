@@ -1,5 +1,5 @@
 import { supabase } from '../supabase/client'
-const BASE_URL = "http://localhost:5000"; // asegúrate que coincida con tu backend
+const BASE_URL = "https://gym-tracker-2zl6.onrender.com"; // asegúrate que coincida con tu backend
 
 export const createExerciseLog = async (exercise) => {
   const res = await fetch(`${BASE_URL}/exercise_logs`, {
