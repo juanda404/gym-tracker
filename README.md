@@ -42,7 +42,7 @@ src/
 ## 📸 Screenshots
 
 ![Inicio](src/assets/screenshots/inicio.png)
-![rutina](src/assets/screenshots/rutinas.png)
+![rutina](src/assets/screenshots/rutina.png)
 
 ---
 
